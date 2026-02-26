@@ -228,7 +228,7 @@ class ConfigClasses(Config):
         .
     """
     name: Literal["configClasses"] = "configClasses"
-    value: Union[Classes, ClassesDisabled]
+    value: Union[ClassesEnabled, ClassesDisabled]
     type: Literal["object"] = "object"
     field: Literal["dependentDropdownlist"] = "dependentDropdownlist"
 
