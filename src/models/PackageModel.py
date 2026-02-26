@@ -237,6 +237,162 @@ class ConfigClasses(Config):
             "shortDescription": "."
         }
 
+class RStripValue(Config):
+    """
+        .
+    """
+    name: Literal["rStripValue"] = "rStripValue"
+    value: str
+    type: Literal["string"] = "string"
+    field: Literal["textInput"] = "textInput"
+
+    class Config:
+        title = "R Strip Value"
+        json_schema_extra = {
+            "shortDescription": "."
+        }
+
+class RStrip(Config):
+    name: Literal["rStrip"] = "rStrip"
+    value: Literal["rStrip"] = "rStrip"
+    type: Literal["string"] = "string"
+    field: Literal["option"] = "option"
+
+    rStripValue: RStripValue
+
+    class Config:
+        title = "R Strip"
+
+class LStripValue(Config):
+    """
+        .
+    """
+    name: Literal["lStripValue"] = "lStripValue"
+    value: str
+    type: Literal["string"] = "string"
+    field: Literal["textInput"] = "textInput"
+
+    class Config:
+        title = "L Strip Value"
+        json_schema_extra = {
+            "shortDescription": "."
+        }
+
+class LStrip(Config):
+    name: Literal["lStrip"] = "lStrip"
+    value: Literal["lStrip"] = "lStrip"
+    type: Literal["string"] = "string"
+    field: Literal["option"] = "option"
+
+    lStripValue: LStripValue
+
+    class Config:
+        title = "L Strip"
+
+class StripValue(Config):
+    """
+        .
+    """
+    name: Literal["stripValue"] = "stripValue"
+    value: str
+    type: Literal["string"] = "string"
+    field: Literal["textInput"] = "textInput"
+
+    class Config:
+        title = "Strip Value"
+        json_schema_extra = {
+            "shortDescription": "."
+        }
+
+class Strip(Config):
+    name: Literal["strip"] = "strip"
+    value: Literal["strip"] = "strip"
+    type: Literal["string"] = "string"
+    field: Literal["option"] = "option"
+
+    stripValue: StripValue
+
+    class Config:
+        title = "Strip"
+
+class PrefixValue(Config):
+    """
+        .
+    """
+    name: Literal["prefixValue"] = "prefixValue"
+    value: str
+    type: Literal["string"] = "string"
+    field: Literal["textInput"] = "textInput"
+
+    class Config:
+        title = "Prefix Value"
+        json_schema_extra = {
+            "shortDescription": "."
+        }
+
+class RemovePrefix(Config):
+    name: Literal["removePrefix"] = "removePrefix"
+    value: Literal["removePrefix"] = "removePrefix"
+    type: Literal["string"] = "string"
+    field: Literal["option"] = "option"
+
+    prefixValue: PrefixValue
+
+    class Config:
+        title = "Remove Prefix"
+
+class SuffixValue(Config):
+    """
+        .
+    """
+    name: Literal["suffixValue"] = "suffixValue"
+    value: str
+    type: Literal["string"] = "string"
+    field: Literal["textInput"] = "textInput"
+
+    class Config:
+        title = "Suffix Value"
+        json_schema_extra = {
+            "shortDescription": "."
+        }
+
+class RemoveSuffix(Config):
+    name: Literal["removeSuffix"] = "removeSuffix"
+    value: Literal["removeSuffix"] = "removeSuffix"
+    type: Literal["string"] = "string"
+    field: Literal["option"] = "option"
+
+    suffixValue: SuffixValue
+
+    class Config:
+        title = "Remove Suffix"
+
+
+class EdgeTrimmingDisabled(Config):
+    name: Literal["edgeTrimmingDisabled"] = "edgeTrimmingDisabled"
+    value: Literal["edgeTrimmingDisabled"] = "edgeTrimmingDisabled"
+    type: Literal["string"] = "string"
+    field: Literal["option"] = "option"
+
+    class Config:
+        title = "Disabled"
+
+class EdgeTrimming(Config):
+    """
+        .
+    """
+    name: Literal["edgeTrimming"] = "edgeTrimming"
+    value: Union[EdgeTrimmingDisabled,RemoveSuffix,RemovePrefix,Strip,LStrip,RStrip]
+    type: Literal["object"] = "object"
+    field: Literal["dependentDropdownlist"] = "dependentDropdownlist"
+
+    class Config:
+        title = "Config Classes"
+        json_schema_extra = {
+            "shortDescription": "."
+        }
+
+
 class StringInputs(Inputs):
     inputData: InputData
 
@@ -245,6 +401,7 @@ class StringConfigs(Configs):
     configReplace: ConfigReplace
     configClasses: ConfigClasses
     configCaseConversions: ConfigCaseConversions
+    edgeTrimming: EdgeTrimming
 
 
 class StringOutputs(Outputs):
