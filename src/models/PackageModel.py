@@ -20,7 +20,7 @@ class OutputData(Output):
 
 class ReplaceValue(Config):
     """
-    .
+        .
     """
     name: Literal["replaceValue"] = "replaceValue"
     value: str
@@ -35,7 +35,7 @@ class ReplaceValue(Config):
 
 class TargetValue(Config):
     """
-    .
+        .
     """
     name: Literal["targetValue"] = "targetValue"
     value: str
@@ -74,7 +74,7 @@ class ReplaceDisabled(Config):
 
 class ConfigReplace(Config):
     """
-    .
+        .
     """
     name: Literal["configReplace"] = "configReplace"
     value: Union[ReplaceEnabled, ReplaceDisabled]
@@ -134,13 +134,21 @@ class Capitalize(Config):
     class Config:
         title = "Capitalize"
 
+class CaseConversionsDisabled(Config):
+    name: Literal["caseConversionsDisabled"] = "caseConversionsDisabled"
+    value: Literal["caseConversionsDisabled"] = "caseConversionsDisabled"
+    type: Literal["string"] = "string"
+    field: Literal["option"] = "option"
+
+    class Config:
+        title = "Disabled"
 
 class ConfigCaseConversions(Config):
     """
-    .
+        .
     """
     name: Literal["configCaseConversions"] = "configCaseConversions"
-    value: Union[Capitalize, Lower, Upper, Title, Swapcase]
+    value: Union[CaseConversionsDisabled, Capitalize, Lower, Upper, Title, Swapcase]
     type: Literal["object"] = "object"
     field: Literal["dropdownlist"] = "dropdownlist"
 
