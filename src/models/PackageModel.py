@@ -18,6 +18,138 @@ class OutputData(Output):
         title = "Output Data"
 
 
+class ReplaceValue(Config):
+    """
+    .
+    """
+    name: Literal["replaceValue"] = "replaceValue"
+    value: str
+    type: Literal["string"] = "string"
+    field: Literal["textInput"] = "textInput"
+
+    class Config:
+        title = "Replace Value"
+        json_schema_extra = {
+            "shortDescription": "."
+        }
+
+class TargetValue(Config):
+    """
+    .
+    """
+    name: Literal["targetValue"] = "targetValue"
+    value: str
+    type: Literal["string"] = "string"
+    field: Literal["textInput"] = "textInput"
+
+    class Config:
+        title = "Target Value"
+        json_schema_extra = {
+            "shortDescription": "."
+        }
+
+
+class ReplaceEnabled(Config):
+    name: Literal["replaceEnabled"] = "replaceEnabled"
+    value: Literal["replaceEnabled"] = "replaceEnabled"
+    type: Literal["string"] = "string"
+    field: Literal["option"] = "option"
+
+    replaceValue: ReplaceValue
+    targetValue: TargetValue
+
+    class Config:
+        title = "Enabled"
+
+
+class ReplaceDisabled(Config):
+    name: Literal["replaceDisabled"] = "replaceDisabled"
+    value: Literal["replaceDisabled"] = "replaceDisabled"
+    type: Literal["string"] = "string"
+    field: Literal["option"] = "option"
+
+    class Config:
+        title = "Disabled"
+
+
+class ConfigReplace(Config):
+    """
+    .
+    """
+    name: Literal["configReplace"] = "configReplace"
+    value: Union[ReplaceEnabled, ReplaceDisabled]
+    type: Literal["object"] = "object"
+    field: Literal["dependentDropdownlist"] = "dependentDropdownlist"
+
+    class Config:
+        title = "Replace"
+        json_schema_extra = {
+            "shortDescription": "."
+        }
+
+class Swapcase(Config):
+    name: Literal["swapcase"] = "swapcase"
+    value: Literal["swapcase"] = "swapcase"
+    type: Literal["string"] = "string"
+    field: Literal["option"] = "option"
+
+    class Config:
+        title = "Swapcase"
+
+class Title(Config):
+    name: Literal["title"] = "title"
+    value: Literal["title"] = "title"
+    type: Literal["string"] = "string"
+    field: Literal["option"] = "option"
+
+    class Config:
+        title = "Title"
+
+class Upper(Config):
+    name: Literal["upper"] = "upper"
+    value: Literal["upper"] = "upper"
+    type: Literal["string"] = "string"
+    field: Literal["option"] = "option"
+
+    class Config:
+        title = "Upper"
+
+
+class Lower(Config):
+    name: Literal["lower"] = "lower"
+    value: Literal["lower"] = "lower"
+    type: Literal["string"] = "string"
+    field: Literal["option"] = "option"
+
+    class Config:
+        title = "Lower"
+
+
+class Capitalize(Config):
+    name: Literal["capitalize"] = "capitalize"
+    value: Literal["capitalize"] = "capitalize"
+    type: Literal["string"] = "string"
+    field: Literal["option"] = "option"
+
+    class Config:
+        title = "Capitalize"
+
+
+class ConfigCaseConversions(Config):
+    """
+    .
+    """
+    name: Literal["configCaseConversions"] = "configCaseConversions"
+    value: Union[Capitalize, Lower, Upper, Title, Swapcase]
+    type: Literal["object"] = "object"
+    field: Literal["dropdownlist"] = "dropdownlist"
+
+    class Config:
+        title = "Case Conversions"
+        json_schema_extra = {
+            "shortDescription": "."
+        }
+
 class OptionFind(Config):
     name: Literal["optionFind"] = "optionFind"
     value: Literal["optionFind"] = "optionFind"
