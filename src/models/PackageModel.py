@@ -387,7 +387,7 @@ class EdgeTrimming(Config):
     field: Literal["dependentDropdownlist"] = "dependentDropdownlist"
 
     class Config:
-        title = "Config Classes"
+        title = "Edge Trimming"
         json_schema_extra = {
             "shortDescription": "."
         }
