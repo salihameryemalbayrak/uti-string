@@ -188,17 +188,52 @@ class OptionLen(Config):
         title = "length"
 
 
-class ConfigClasses(Config):
+class Classes(Config):
     """
        .
     """
-    name: Literal["ConfigClasses"] = "ConfigClasses"
+    name: Literal["classes"] = "classes"
     value: List[Union[OptionFind, OptionCount, OptionLen]]
     type: Literal["object"] = "object"
     field: Literal["selectBox"] = "selectBox"
 
     class Config:
         title = "Classes"
+        json_schema_extra = {
+            "shortDescription": "."
+        }
+
+class ClassesEnabled(Config):
+    name: Literal["classesEnabled"] = "classesEnabled"
+    value: Literal["classesEnabled"] = "classesEnabled"
+    type: Literal["string"] = "string"
+    field: Literal["option"] = "option"
+
+    classes: Classes
+
+    class Config:
+        title = "Enabled"
+
+class ClassesDisabled(Config):
+    name: Literal["classesDisabled"] = "classesDisabled"
+    value: Literal["classesDisabled"] = "classesDisabled"
+    type: Literal["string"] = "string"
+    field: Literal["option"] = "option"
+
+    class Config:
+        title = "Disabled"
+
+class ConfigClasses(Config):
+    """
+        .
+    """
+    name: Literal["configClasses"] = "configClasses"
+    value: Union[Classes, ClassesDisabled]
+    type: Literal["object"] = "object"
+    field: Literal["dependentDropdownlist"] = "dependentDropdownlist"
+
+    class Config:
+        title = "Config Classes"
         json_schema_extra = {
             "shortDescription": "."
         }
