@@ -1,106 +1,83 @@
 
 from pydantic import Field, validator
-from typing import List, Optional, Union, Literal
-from sdks.novavision.src.base.model import Package, Image, Inputs, Configs, Outputs, Response, Request, Output, Input, Config
+from typing import List, Optional, Union, Literal, Dict
+from sdks.novavision.src.base.model import Package, Image, Inputs, Configs, Outputs, Response, Request, Output, Input, Config, Detection
 
-
-class InputImage(Input):
-    name: Literal["inputImage"] = "inputImage"
-    value: Union[List[Image], Image]
+class InputData(Input):
+    name: Literal["inputData"] = "inputData"
+    value: Union[List[Image], Image, List[Detection], Detection, Dict, List]
     type: str = "object"
 
-    @validator("type", pre=True, always=True)
-    def set_type_based_on_value(cls, value, values):
-        value = values.get('value')
-        if isinstance(value, Image):
-            return "object"
-        elif isinstance(value, list):
-            return "list"
 
-    class Config:
-        title = "Image"
-
-
-class OutputImage(Output):
-    name: Literal["outputImage"] = "outputImage"
-    value: Union[List[Image],Image]
+class OutputData(Output):
+    name: Literal["outputData"] = "outputData"
+    value: Union[List[Image], Image, List[Detection], Detection, Dict, List]
     type: str = "object"
 
-    @validator("type", pre=True, always=True)
-    def set_type_based_on_value(cls, value, values):
-        value = values.get('value')
-        if isinstance(value, Image):
-            return "object"
-        elif isinstance(value, list):
-            return "list"
-
     class Config:
-        title = "Image"
+        title = "Output Data"
 
 
-class KeepSideFalse(Config):
-    name: Literal["False"] = "False"
-    value: Literal[False] = False
-    type: Literal["bool"] = "bool"
+class OptionFind(Config):
+    name: Literal["optionFind"] = "optionFind"
+    value: Literal["optionFind"] = "optionFind"
+    type: Literal["string"] = "string"
     field: Literal["option"] = "option"
 
     class Config:
-        title = "Disable"
+        title = "find"
 
 
-class KeepSideTrue(Config):
-    name: Literal["True"] = "True"
-    value: Literal[True] = True
-    type: Literal["bool"] = "bool"
+class OptionCount(Config):
+    name: Literal["optionCount"] = "optionCount"
+    value: Literal["optionCount"] = "optionCount"
+    type: Literal["string"] = "string"
     field: Literal["option"] = "option"
 
     class Config:
-        title = "Enable"
+        title = "count"
 
 
-class KeepSideBBox(Config):
+class OptionLen(Config):
+    name: Literal["optionLen"] = "optionLen"
+    value: Literal["optionLen"] = "optionLen"
+    type: Literal["string"] = "string"
+    field: Literal["option"] = "option"
+
+    class Config:
+        title = "length"
+
+
+class ConfigClasses(Config):
     """
-        Rotate image without catting off sides.
+       .
     """
-    name: Literal["KeepSide"] = "KeepSide"
-    value: Union[KeepSideTrue, KeepSideFalse]
+    name: Literal["ConfigClasses"] = "ConfigClasses"
+    value: List[Union[OptionFind, OptionCount, OptionLen]]
     type: Literal["object"] = "object"
-    field: Literal["dropdownlist"] = "dropdownlist"
+    field: Literal["selectBox"] = "selectBox"
 
     class Config:
-        title = "Keep Sides"
+        title = "Classes"
+        json_schema_extra = {
+            "shortDescription": "."
+        }
+
+class StringInputs(Inputs):
+    inputData: InputData
 
 
-class Degree(Config):
-    """
-        Positive angles specify counterclockwise rotation while negative angles indicate clockwise rotation.
-    """
-    name: Literal["Degree"] = "Degree"
-    value: int = Field(ge=-359.0, le=359.0,default=0)
-    type: Literal["number"] = "number"
-    field: Literal["textInput"] = "textInput"
-    placeHolder: Literal["[-359, 359]"] = "[-359, 359]"
-
-    class Config:
-        title = "Angle"
+class StringConfigs(Configs):
+    configClasses: ConfigClasses
 
 
-class PackageInputs(Inputs):
-    inputImage: InputImage
+class StringOutputs(Outputs):
+    outputData: OutputData
 
 
-class PackageConfigs(Configs):
-    degree: Degree
-    drawBBox: KeepSideBBox
-
-
-class PackageOutputs(Outputs):
-    outputImage: OutputImage
-
-
-class PackageRequest(Request):
-    inputs: Optional[PackageInputs]
-    configs: PackageConfigs
+class StringRequest(Request):
+    inputs: Optional[StringInputs]
+    configs: StringConfigs
 
     class Config:
         json_schema_extra = {
@@ -108,18 +85,18 @@ class PackageRequest(Request):
         }
 
 
-class PackageResponse(Response):
-    outputs: PackageOutputs
+class StringResponse(Response):
+    outputs: StringOutputs
 
 
-class PackageExecutor(Config):
-    name: Literal["Package"] = "Package"
-    value: Union[PackageRequest, PackageResponse]
+class StringExecutor(Config):
+    name: Literal["String"] = "String"
+    value: Union[StringRequest, StringResponse]
     type: Literal["object"] = "object"
     field: Literal["option"] = "option"
 
     class Config:
-        title = "Package"
+        title = "String"
         json_schema_extra = {
             "target": {
                 "value": 0
@@ -129,7 +106,7 @@ class PackageExecutor(Config):
 
 class ConfigExecutor(Config):
     name: Literal["ConfigExecutor"] = "ConfigExecutor"
-    value: Union[PackageExecutor]
+    value: Union[StringExecutor]
     type: Literal["executor"] = "executor"
     field: Literal["dependentDropdownlist"] = "dependentDropdownlist"
 
@@ -147,4 +124,4 @@ class PackageConfigs(Configs):
 class PackageModel(Package):
     configs: PackageConfigs
     type: Literal["component"] = "component"
-    name: Literal["Package"] = "Package"
+    name: Literal["String"] = "String"
