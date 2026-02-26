@@ -17,6 +17,20 @@ class OutputData(Output):
     class Config:
         title = "Output Data"
 
+class TargetValue(Config):
+    """
+        .
+    """
+    name: Literal["targetValue"] = "targetValue"
+    value: str
+    type: Literal["string"] = "string"
+    field: Literal["textInput"] = "textInput"
+
+    class Config:
+        title = "Target Value"
+        json_schema_extra = {
+            "shortDescription": "."
+        }
 
 class ReplaceValue(Config):
     """
@@ -33,21 +47,6 @@ class ReplaceValue(Config):
             "shortDescription": "."
         }
 
-class TargetValue(Config):
-    """
-        .
-    """
-    name: Literal["targetValue"] = "targetValue"
-    value: str
-    type: Literal["string"] = "string"
-    field: Literal["textInput"] = "textInput"
-
-    class Config:
-        title = "Target Value"
-        json_schema_extra = {
-            "shortDescription": "."
-        }
-
 
 class ReplaceEnabled(Config):
     name: Literal["replaceEnabled"] = "replaceEnabled"
@@ -55,8 +54,8 @@ class ReplaceEnabled(Config):
     type: Literal["string"] = "string"
     field: Literal["option"] = "option"
 
-    replaceValue: ReplaceValue
     targetValue: TargetValue
+    replaceValue: ReplaceValue
 
     class Config:
         title = "Enabled"
