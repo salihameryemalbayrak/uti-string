@@ -17,6 +17,21 @@ class OutputData(Output):
     class Config:
         title = "Output Data"
 
+class ConfigSelectedKey(Config):
+    """
+        .
+    """
+    name: Literal["configSelectedKey"] = "configSelectedKey"
+    value: str = Field(min_length=0)
+    type: Literal["string"] = "string"
+    field: Literal["textInput"] = "textInput"
+
+    class Config:
+        title = "Selected Key"
+        json_schema_extra = {
+            "shortDescription": "."
+        }
+
 class TargetValue(Config):
     """
         .
@@ -398,6 +413,7 @@ class StringInputs(Inputs):
 
 
 class StringConfigs(Configs):
+    configSelectedKey: ConfigSelectedKey
     configReplace: ConfigReplace
     configClasses: ConfigClasses
     configCaseConversions: ConfigCaseConversions

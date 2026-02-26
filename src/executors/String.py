@@ -20,6 +20,9 @@ class String(Component):
         super().__init__(request, bootstrap)
         self.request.model = PackageModel(**(self.request.data))
         self.data = self.request.get_param("inputData")
+        self.text_list = []
+        self.configSelectedKeyValue = self.request.get_param("configSelectedKey")
+        self.text_list = [t.strip() for t in self.configSelectedKeyValue.split(',')]
         self.configReplace = self.request.get_param("configReplace")
         if self.configReplace =="replaceEnabled":
             self.replaceValue = self.request.get_param("replaceValue")
@@ -36,9 +39,7 @@ class String(Component):
             self.lStripValue = self.request.get_param("lStripValue")
         elif self.configEdgeTrimming == "rStrip":
             self.rStripValue = self.request.get_param("rStripValue")
-
         self.configClasses = self.request.get_param("configClasses")
-
 
     @staticmethod
     def bootstrap(config: dict) -> dict:
@@ -46,7 +47,58 @@ class String(Component):
 
 
     def run(self):
+        items_to_process = self.data if isinstance(self.data, list) else [self.data]
+        for item in items_to_process:
+            if isinstance(item, dict):
+                for key_path in self.text_list:
+                    keys = key_path.split('.')
 
+                    current_level = item
+                    for i in range(len(keys) - 1):
+                        current_key = keys[i]
+                        if isinstance(current_level, dict) and current_key in current_level:
+                            current_level = current_level[current_key]
+                        else:
+                            current_level = None
+                            break
+
+                    target_key = keys[-1]
+                    if isinstance(current_level, dict) and target_key in current_level:
+                        val = current_level[target_key]
+                        if self.configReplace =="replaceEnabled":
+                            current_level[target_key] = val.replace(self.targetValue, self.replaceValue)
+                        match self.configCaseConversions:
+                            case "capitalize":
+                                current_level[target_key] = val.capitalize()
+                            case "lower":
+                                current_level[target_key] = val.lower()
+                            case "upper":
+                                current_level[target_key] = val.upper()
+                            case "title":
+                                current_level[target_key] = val.title()
+                            case "swapcase":
+                                current_level[target_key] = val.swapcase()
+                            case "caseConversionsDisabled":
+                                pass
+
+                        match self.configEdgeTrimming:
+                            case "removeSuffix":
+                                current_level[target_key] = val.removesuffix(self.suffixValue)
+
+                            case "removePrefix":
+                                current_level[target_key] = val.removeprefix(self.prefixValue)
+
+                            case "strip":
+                                current_level[target_key] = val.strip(self.stripValue)
+
+                            case "lStrip":
+                                current_level[target_key] = val.lstrip(self.lStripValue)
+
+                            case "rStrip":
+                                current_level[target_key] = val.rstrip(self.rStripValue)
+
+                            case "edgeTrimmingDisabled":
+                                pass
         self.outputData = self.data
         return build_response_string(context=self)
 
