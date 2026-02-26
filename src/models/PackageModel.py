@@ -200,8 +200,9 @@ class StringInputs(Inputs):
 
 
 class StringConfigs(Configs):
-    configClasses: ConfigClasses
     configReplace: ConfigReplace
+    configClasses: ConfigClasses
+    configCaseConversions: ConfigCaseConversions
 
 
 class StringOutputs(Outputs):
