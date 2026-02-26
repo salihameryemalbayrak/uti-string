@@ -201,6 +201,7 @@ class StringInputs(Inputs):
 
 class StringConfigs(Configs):
     configClasses: ConfigClasses
+    configReplace: ConfigReplace
 
 
 class StringOutputs(Outputs):
