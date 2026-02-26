@@ -232,7 +232,7 @@ class ConfigClasses(Config):
     field: Literal["dependentDropdownlist"] = "dependentDropdownlist"
 
     class Config:
-        title = "Config Classes"
+        title = "Classes"
         json_schema_extra = {
             "shortDescription": "."
         }
@@ -377,11 +377,11 @@ class EdgeTrimmingDisabled(Config):
     class Config:
         title = "Disabled"
 
-class EdgeTrimming(Config):
+class ConfigEdgeTrimming(Config):
     """
         .
     """
-    name: Literal["edgeTrimming"] = "edgeTrimming"
+    name: Literal["configEdgeTrimming"] = "configEdgeTrimming"
     value: Union[EdgeTrimmingDisabled,RemoveSuffix,RemovePrefix,Strip,LStrip,RStrip]
     type: Literal["object"] = "object"
     field: Literal["dependentDropdownlist"] = "dependentDropdownlist"
@@ -401,7 +401,7 @@ class StringConfigs(Configs):
     configReplace: ConfigReplace
     configClasses: ConfigClasses
     configCaseConversions: ConfigCaseConversions
-    edgeTrimming: EdgeTrimming
+    configEdgeTrimming: ConfigEdgeTrimming
 
 
 class StringOutputs(Outputs):

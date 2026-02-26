@@ -20,6 +20,24 @@ class String(Component):
         super().__init__(request, bootstrap)
         self.request.model = PackageModel(**(self.request.data))
         self.data = self.request.get_param("inputData")
+        self.configReplace = self.request.get_param("configReplace")
+        if self.configReplace =="replaceEnabled":
+            self.replaceValue = self.request.get_param("replaceValue")
+            self.targetValue = self.request.get_param("targetValue")
+        self.configCaseConversions = self.request.get_param("configCaseConversions")
+        self.configEdgeTrimming = self.request.get_param("configEdgeTrimming")
+        if self.configEdgeTrimming == "removeSuffix":
+            self.suffixValue = self.request.get_param("suffixValue")
+        elif self.configEdgeTrimming == "removePrefix":
+            self.prefixValue = self.request.get_param("prefixValue")
+        elif self.configEdgeTrimming == "strip":
+            self.stripValue = self.request.get_param("stripValue")
+        elif self.configEdgeTrimming == "lStrip":
+            self.lStripValue = self.request.get_param("lStripValue")
+        elif self.configEdgeTrimming == "rStrip":
+            self.rStripValue = self.request.get_param("rStripValue")
+
+        self.configClasses = self.request.get_param("configClasses")
 
 
     @staticmethod
