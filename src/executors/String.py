@@ -106,9 +106,21 @@ class String(Component):
                             print(val)
                             current_level[f"{target_key}Length"] = len(str(val))
                         if self.configCount == "countEnabled":
-                            current_level[f"{target_key}Length"] = val.count(self.countValue)
+                            current_level[f"{target_key}Count{self.countValue}"] = val.count(self.countValue)
                         if self.configFind == "findEnabled":
-                            current_level[f"{target_key}Length"] = val.find(self.findValue)
+                            found_indices = []
+                            search_term = self.findValue
+
+                            if isinstance(val, str) and search_term:
+                                start_index = 0
+                                while True:
+                                    idx = val.find(search_term, start_index)
+                                    if idx == -1:
+                                        break
+                                    found_indices.append(idx)
+                                    start_index = idx + len(search_term)
+
+                            current_level[f"{target_key}FindIndex"] = found_indices
 
         self.outputData = self.data
         return build_response_string(context=self)
