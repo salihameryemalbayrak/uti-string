@@ -45,7 +45,6 @@ class String(Component):
     def bootstrap(config: dict) -> dict:
         return {}
 
-
     def run(self):
         items_to_process = self.data if isinstance(self.data, list) else [self.data]
         for item in items_to_process:
@@ -65,40 +64,38 @@ class String(Component):
                     target_key = keys[-1]
                     if isinstance(current_level, dict) and target_key in current_level:
                         val = current_level[target_key]
-                        if self.configReplace =="replaceEnabled":
-                            current_level[target_key] = val.replace(self.targetValue, self.replaceValue)
+                        if self.configReplace == "replaceEnabled":
+                            val = val.replace(self.targetValue, self.replaceValue)
+
                         match self.configCaseConversions:
                             case "capitalize":
-                                current_level[target_key] = val.capitalize()
+                                val = val.capitalize()
                             case "lower":
-                                current_level[target_key] = val.lower()
+                                val = val.lower()
                             case "upper":
-                                current_level[target_key] = val.upper()
+                                val = val.upper()
                             case "title":
-                                current_level[target_key] = val.title()
+                                val = val.title()
                             case "swapcase":
-                                current_level[target_key] = val.swapcase()
+                                val = val.swapcase()
                             case "caseConversionsDisabled":
                                 pass
 
                         match self.configEdgeTrimming:
                             case "removeSuffix":
-                                current_level[target_key] = val.removesuffix(self.suffixValue)
-
+                                val = val.removesuffix(self.suffixValue)
                             case "removePrefix":
-                                current_level[target_key] = val.removeprefix(self.prefixValue)
-
+                                val = val.removeprefix(self.prefixValue)
                             case "strip":
-                                current_level[target_key] = val.strip(self.stripValue)
-
+                                val = val.strip(self.stripValue)
                             case "lStrip":
-                                current_level[target_key] = val.lstrip(self.lStripValue)
-
+                                val = val.lstrip(self.lStripValue)
                             case "rStrip":
-                                current_level[target_key] = val.rstrip(self.rStripValue)
-
+                                val = val.rstrip(self.rStripValue)
                             case "edgeTrimmingDisabled":
                                 pass
+                        current_level[target_key] = val
+
         self.outputData = self.data
         return build_response_string(context=self)
 
