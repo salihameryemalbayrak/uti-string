@@ -101,6 +101,148 @@ class ConfigReplace(Config):
             "shortDescription": "."
         }
 
+class LengthEnabled(Config):
+    name: Literal["lengthEnabled"] = "lengthEnabled"
+    value: Literal["lengthEnabled"] = "lengthEnabled"
+    type: Literal["string"] = "string"
+    field: Literal["option"] = "option"
+
+    targetValue: TargetValue
+    replaceValue: ReplaceValue
+
+    class Config:
+        title = "Enabled"
+
+
+class LengthDisabled(Config):
+    name: Literal["lengthDisabled"] = "lengthDisabled"
+    value: Literal["lengthDisabled"] = "lengthDisabled"
+    type: Literal["string"] = "string"
+    field: Literal["option"] = "option"
+
+    class Config:
+        title = "Disabled"
+
+
+class ConfigLength(Config):
+    """
+        .
+    """
+    name: Literal["configLength"] = "configLength"
+    value: Union[LengthEnabled, LengthDisabled]
+    type: Literal["object"] = "object"
+    field: Literal["dependentDropdownlist"] = "dependentDropdownlist"
+
+    class Config:
+        title = "Length"
+        json_schema_extra = {
+            "shortDescription": "."
+        }
+
+class CountValue(Config):
+    """
+        .
+    """
+    name: Literal["countValue"] = "countValue"
+    value: str
+    type: Literal["string"] = "string"
+    field: Literal["textInput"] = "textInput"
+
+    class Config:
+        title = "Count Value"
+        json_schema_extra = {
+            "shortDescription": "."
+        }
+
+class CountEnabled(Config):
+    name: Literal["countEnabled"] = "countEnabled"
+    value: Literal["countEnabled"] = "countEnabled"
+    type: Literal["string"] = "string"
+    field: Literal["option"] = "option"
+
+    countValue: CountValue
+
+    class Config:
+        title = "Enabled"
+
+
+class CountDisabled(Config):
+    name: Literal["countDisabled"] = "countDisabled"
+    value: Literal["countDisabled"] = "countDisabled"
+    type: Literal["string"] = "string"
+    field: Literal["option"] = "option"
+
+    class Config:
+        title = "Disabled"
+
+
+class ConfigCount(Config):
+    """
+        .
+    """
+    name: Literal["configCount"] = "configCount"
+    value: Union[CountEnabled, CountDisabled]
+    type: Literal["object"] = "object"
+    field: Literal["dependentDropdownlist"] = "dependentDropdownlist"
+
+    class Config:
+        title = "Count"
+        json_schema_extra = {
+            "shortDescription": "."
+        }
+
+class FindValue(Config):
+    """
+        .
+    """
+    name: Literal["findValue"] = "findValue"
+    value: str
+    type: Literal["string"] = "string"
+    field: Literal["textInput"] = "textInput"
+
+    class Config:
+        title = "Count Value"
+        json_schema_extra = {
+            "shortDescription": "."
+        }
+
+class FindEnabled(Config):
+    name: Literal["findEnabled"] = "findEnabled"
+    value: Literal["findEnabled"] = "findEnabled"
+    type: Literal["string"] = "string"
+    field: Literal["option"] = "option"
+
+    findValue: FindValue
+
+    class Config:
+        title = "Enabled"
+
+
+class FindDisabled(Config):
+    name: Literal["findDisabled"] = "findDisabled"
+    value: Literal["findDisabled"] = "findDisabled"
+    type: Literal["string"] = "string"
+    field: Literal["option"] = "option"
+
+    class Config:
+        title = "Disabled"
+
+
+class ConfigFind(Config):
+    """
+        .
+    """
+    name: Literal["configFind"] = "configFind"
+    value: Union[FindEnabled, FindDisabled]
+    type: Literal["object"] = "object"
+    field: Literal["dependentDropdownlist"] = "dependentDropdownlist"
+
+    class Config:
+        title = "Find"
+        json_schema_extra = {
+            "shortDescription": "."
+        }
+
 class Swapcase(Config):
     name: Literal["swapcase"] = "swapcase"
     value: Literal["swapcase"] = "swapcase"
@@ -172,85 +314,6 @@ class ConfigCaseConversions(Config):
             "shortDescription": "."
         }
 
-class OptionFind(Config):
-    name: Literal["optionFind"] = "optionFind"
-    value: Literal["optionFind"] = "optionFind"
-    type: Literal["string"] = "string"
-    field: Literal["option"] = "option"
-
-    class Config:
-        title = "find"
-
-
-class OptionCount(Config):
-    name: Literal["optionCount"] = "optionCount"
-    value: Literal["optionCount"] = "optionCount"
-    type: Literal["string"] = "string"
-    field: Literal["option"] = "option"
-
-    class Config:
-        title = "count"
-
-
-class OptionLen(Config):
-    name: Literal["optionLen"] = "optionLen"
-    value: Literal["optionLen"] = "optionLen"
-    type: Literal["string"] = "string"
-    field: Literal["option"] = "option"
-
-    class Config:
-        title = "length"
-
-
-class Classes(Config):
-    """
-       .
-    """
-    name: Literal["classes"] = "classes"
-    value: List[Union[OptionFind, OptionCount, OptionLen]]
-    type: Literal["object"] = "object"
-    field: Literal["selectBox"] = "selectBox"
-
-    class Config:
-        title = "Classes"
-        json_schema_extra = {
-            "shortDescription": "."
-        }
-
-class ClassesEnabled(Config):
-    name: Literal["classesEnabled"] = "classesEnabled"
-    value: Literal["classesEnabled"] = "classesEnabled"
-    type: Literal["string"] = "string"
-    field: Literal["option"] = "option"
-
-    classes: Classes
-
-    class Config:
-        title = "Enabled"
-
-class ClassesDisabled(Config):
-    name: Literal["classesDisabled"] = "classesDisabled"
-    value: Literal["classesDisabled"] = "classesDisabled"
-    type: Literal["string"] = "string"
-    field: Literal["option"] = "option"
-
-    class Config:
-        title = "Disabled"
-
-class ConfigClasses(Config):
-    """
-        .
-    """
-    name: Literal["configClasses"] = "configClasses"
-    value: Union[ClassesEnabled, ClassesDisabled]
-    type: Literal["object"] = "object"
-    field: Literal["dependentDropdownlist"] = "dependentDropdownlist"
-
-    class Config:
-        title = "Classes"
-        json_schema_extra = {
-            "shortDescription": "."
-        }
 
 class RStripValue(Config):
     """
@@ -415,7 +478,9 @@ class StringInputs(Inputs):
 class StringConfigs(Configs):
     configSelectedKey: ConfigSelectedKey
     configReplace: ConfigReplace
-    configClasses: ConfigClasses
+    configLength: ConfigLength
+    configCount: ConfigCount
+    configFind: ConfigFind
     configCaseConversions: ConfigCaseConversions
     configEdgeTrimming: ConfigEdgeTrimming
 

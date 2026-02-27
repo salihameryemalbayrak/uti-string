@@ -27,6 +27,13 @@ class String(Component):
         if self.configReplace =="replaceEnabled":
             self.replaceValue = self.request.get_param("replaceValue")
             self.targetValue = self.request.get_param("targetValue")
+        self.configLength = self.request.get_param("configLength")
+        self.configCount = self.request.get_param("configCount")
+        if self.configCount == "countEnabled":
+            self.countValue = self.request.get_param("countValue")
+        self.configFind = self.request.get_param("configFind")
+        if self.configFind == "findEnabled":
+            self.findValue = self.request.get_param("findValue")
         self.configCaseConversions = self.request.get_param("configCaseConversions")
         self.configEdgeTrimming = self.request.get_param("configEdgeTrimming")
         if self.configEdgeTrimming == "removeSuffix":
@@ -39,7 +46,6 @@ class String(Component):
             self.lStripValue = self.request.get_param("lStripValue")
         elif self.configEdgeTrimming == "rStrip":
             self.rStripValue = self.request.get_param("rStripValue")
-        self.configClasses = self.request.get_param("configClasses")
 
     @staticmethod
     def bootstrap(config: dict) -> dict:
