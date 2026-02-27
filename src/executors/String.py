@@ -102,6 +102,14 @@ class String(Component):
                                 pass
                         current_level[target_key] = val
 
+                        if self.configLength == "lengthEnabled":
+                            print(val)
+                            current_level[f"{target_key}Length"] = len(str(val))
+                        if self.configCount == "countEnabled":
+                            current_level[f"{target_key}Length"] = val.count(self.countValue)
+                        if self.configFind == "findEnabled":
+                            current_level[f"{target_key}Length"] = val.find(self.findValue)
+
         self.outputData = self.data
         return build_response_string(context=self)
 
