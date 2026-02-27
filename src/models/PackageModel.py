@@ -107,8 +107,6 @@ class LengthEnabled(Config):
     type: Literal["string"] = "string"
     field: Literal["option"] = "option"
 
-    targetValue: TargetValue
-    replaceValue: ReplaceValue
 
     class Config:
         title = "Enabled"
