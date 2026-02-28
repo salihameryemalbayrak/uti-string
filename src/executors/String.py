@@ -120,7 +120,7 @@ class String(Component):
                                     found_indices.append(idx)
                                     start_index = idx + len(search_term)
 
-                            current_level[f"{target_key}FindIndex"] = found_indices
+                            current_level[f"{target_key}Find{self.findValue}Index"] = found_indices
 
         self.outputData = self.data
         return build_response_string(context=self)
