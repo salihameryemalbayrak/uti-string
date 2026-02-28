@@ -19,7 +19,9 @@ class OutputData(Output):
 
 class ConfigSelectedKey(Config):
     """
-        .
+    Specifies the key paths in the input dictionary to be processed. 
+    Supports nested keys using dot notation (e.g., 'data.text.value'). 
+    Multiple keys can be separated by commas.
     """
     name: Literal["configSelectedKey"] = "configSelectedKey"
     value: str = Field(min_length=0)
@@ -29,12 +31,12 @@ class ConfigSelectedKey(Config):
     class Config:
         title = "Selected Key"
         json_schema_extra = {
-            "shortDescription": "."
+            "shortDescription": "Dot-notated paths of the keys to transform."
         }
 
 class TargetValue(Config):
     """
-        .
+    The substring or character sequence to be searched for within the target string for replacement.
     """
     name: Literal["targetValue"] = "targetValue"
     value: str
@@ -44,12 +46,12 @@ class TargetValue(Config):
     class Config:
         title = "Target Value"
         json_schema_extra = {
-            "shortDescription": "."
+            "shortDescription": "The text to be replaced."
         }
 
 class ReplaceValue(Config):
     """
-        .
+    The new string that will replace the 'Target Value' whenever it is found in the input data.
     """
     name: Literal["replaceValue"] = "replaceValue"
     value: str
@@ -59,7 +61,7 @@ class ReplaceValue(Config):
     class Config:
         title = "Replace Value"
         json_schema_extra = {
-            "shortDescription": "."
+            "shortDescription": "The replacement text."
         }
 
 
@@ -88,7 +90,8 @@ class ReplaceDisabled(Config):
 
 class ConfigReplace(Config):
     """
-        .
+    Enables find-and-replace operations. It scans the target string for a specific 
+    value and substitutes it with the provided replacement value.
     """
     name: Literal["configReplace"] = "configReplace"
     value: Union[ReplaceEnabled, ReplaceDisabled]
@@ -98,7 +101,7 @@ class ConfigReplace(Config):
     class Config:
         title = "Replace"
         json_schema_extra = {
-            "shortDescription": "."
+            "shortDescription": "Search and replace substrings."
         }
 
 class LengthEnabled(Config):
@@ -124,7 +127,8 @@ class LengthDisabled(Config):
 
 class ConfigLength(Config):
     """
-        .
+    Calculates the character count of the processed string and stores it 
+    as a new field with the suffix 'Length' in the output dictionary.
     """
     name: Literal["configLength"] = "configLength"
     value: Union[LengthEnabled, LengthDisabled]
@@ -134,12 +138,12 @@ class ConfigLength(Config):
     class Config:
         title = "Length"
         json_schema_extra = {
-            "shortDescription": "."
+            "shortDescription": "Calculate string length."
         }
 
 class CountValue(Config):
     """
-        .
+    The specific character or substring to count occurrences of within the target string.
     """
     name: Literal["countValue"] = "countValue"
     value: str
@@ -149,7 +153,7 @@ class CountValue(Config):
     class Config:
         title = "Count Value"
         json_schema_extra = {
-            "shortDescription": "."
+            "shortDescription": "The substring to count."
         }
 
 class CountEnabled(Config):
@@ -176,7 +180,8 @@ class CountDisabled(Config):
 
 class ConfigCount(Config):
     """
-        .
+    Counts the number of non-overlapping occurrences of a specific substring. 
+    Results are saved in a field suffixed with 'Count' followed by the search term.
     """
     name: Literal["configCount"] = "configCount"
     value: Union[CountEnabled, CountDisabled]
@@ -186,12 +191,12 @@ class ConfigCount(Config):
     class Config:
         title = "Count"
         json_schema_extra = {
-            "shortDescription": "."
+            "shortDescription": "Count occurrences of a substring."
         }
 
 class FindValue(Config):
     """
-        .
+    The substring whose indices (positions) need to be located within the string.
     """
     name: Literal["findValue"] = "findValue"
     value: str
@@ -199,9 +204,9 @@ class FindValue(Config):
     field: Literal["textInput"] = "textInput"
 
     class Config:
-        title = "Count Value"
+        title = "Find Value"
         json_schema_extra = {
-            "shortDescription": "."
+            "shortDescription": "The substring to find."
         }
 
 class FindEnabled(Config):
@@ -228,7 +233,8 @@ class FindDisabled(Config):
 
 class ConfigFind(Config):
     """
-        .
+    Locates all starting indices of a specified substring within the target string. 
+    The list of indices is stored in a field suffixed with 'FindIndex'.
     """
     name: Literal["configFind"] = "configFind"
     value: Union[FindEnabled, FindDisabled]
@@ -238,7 +244,7 @@ class ConfigFind(Config):
     class Config:
         title = "Find"
         json_schema_extra = {
-            "shortDescription": "."
+            "shortDescription": "Locate indices of a substring."
         }
 
 class Swapcase(Config):
@@ -299,7 +305,8 @@ class CaseConversionsDisabled(Config):
 
 class ConfigCaseConversions(Config):
     """
-        .
+    Provides various methods to change the letter case of the string, 
+    including Upper, Lower, Capitalize, Title, and Swapcase.
     """
     name: Literal["configCaseConversions"] = "configCaseConversions"
     value: Union[CaseConversionsDisabled, Capitalize, Lower, Upper, Title, Swapcase]
@@ -309,13 +316,13 @@ class ConfigCaseConversions(Config):
     class Config:
         title = "Case Conversions"
         json_schema_extra = {
-            "shortDescription": "."
+            "shortDescription": "Change string casing (e.g., Upper, Lower)."
         }
 
 
 class RStripValue(Config):
     """
-        .
+    The set of characters to be removed from the end of the string.
     """
     name: Literal["rStripValue"] = "rStripValue"
     value: str
@@ -325,7 +332,7 @@ class RStripValue(Config):
     class Config:
         title = "R Strip Value"
         json_schema_extra = {
-            "shortDescription": "."
+            "shortDescription": "Characters to strip from the right."
         }
 
 class RStrip(Config):
@@ -341,7 +348,7 @@ class RStrip(Config):
 
 class LStripValue(Config):
     """
-        .
+    The set of characters to be removed from the beginning of the string.
     """
     name: Literal["lStripValue"] = "lStripValue"
     value: str
@@ -351,7 +358,7 @@ class LStripValue(Config):
     class Config:
         title = "L Strip Value"
         json_schema_extra = {
-            "shortDescription": "."
+            "shortDescription": "Characters to strip from the left."
         }
 
 class LStrip(Config):
@@ -367,7 +374,7 @@ class LStrip(Config):
 
 class StripValue(Config):
     """
-        .
+    The set of characters to be removed from both ends of the string.
     """
     name: Literal["stripValue"] = "stripValue"
     value: str
@@ -377,7 +384,7 @@ class StripValue(Config):
     class Config:
         title = "Strip Value"
         json_schema_extra = {
-            "shortDescription": "."
+            "shortDescription": "Characters to strip from both ends."
         }
 
 class Strip(Config):
@@ -393,7 +400,7 @@ class Strip(Config):
 
 class PrefixValue(Config):
     """
-        .
+    The exact prefix string to be removed from the start of the target string.
     """
     name: Literal["prefixValue"] = "prefixValue"
     value: str
@@ -403,7 +410,7 @@ class PrefixValue(Config):
     class Config:
         title = "Prefix Value"
         json_schema_extra = {
-            "shortDescription": "."
+            "shortDescription": "The prefix to remove."
         }
 
 class RemovePrefix(Config):
@@ -419,7 +426,7 @@ class RemovePrefix(Config):
 
 class SuffixValue(Config):
     """
-        .
+    The exact suffix string to be removed from the end of the target string.
     """
     name: Literal["suffixValue"] = "suffixValue"
     value: str
@@ -429,7 +436,7 @@ class SuffixValue(Config):
     class Config:
         title = "Suffix Value"
         json_schema_extra = {
-            "shortDescription": "."
+            "shortDescription": "The suffix to remove."
         }
 
 class RemoveSuffix(Config):
@@ -455,7 +462,8 @@ class EdgeTrimmingDisabled(Config):
 
 class ConfigEdgeTrimming(Config):
     """
-        .
+    Allows trimming characters from the edges or removing specific 
+    prefixes and suffixes from the string.
     """
     name: Literal["configEdgeTrimming"] = "configEdgeTrimming"
     value: Union[EdgeTrimmingDisabled,RemoveSuffix,RemovePrefix,Strip,LStrip,RStrip]
@@ -465,7 +473,7 @@ class ConfigEdgeTrimming(Config):
     class Config:
         title = "Edge Trimming"
         json_schema_extra = {
-            "shortDescription": "."
+            "shortDescription": "Clean edges, prefixes, or suffixes."
         }
 
 
